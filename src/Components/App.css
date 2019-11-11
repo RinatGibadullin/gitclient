@@ -1,0 +1,29 @@
+.row {
+  padding: 5px;
+}
+
+.row:hover {
+  background-color: lightblue;
+}
+
+.row_selected {
+  background-color: orange;
+}
+
+.row_selected:hover {
+  background-color: orange;
+}
+
+li {
+  list-style-type: none;
+}
+body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+Card {
+  border: solid black;
+}
+
+
