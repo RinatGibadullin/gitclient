@@ -1,11 +1,19 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import {Query, Mutation} from 'react-apollo';
-import { makeStyles } from '@material-ui/core/styles';
-
+import {Query} from 'react-apollo';
+import {makeStyles} from '@material-ui/core/styles';
 import './App.css';
-import Repositories from './Repositories'
-import Card from "@material-ui/core/Card";
+import Repositories from './RepositoryList/Repositories'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch
+} from "react-router-dom";
+import Repository from "./Repository/Repository";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
   {
@@ -17,6 +25,9 @@ export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
             name
             url
             viewerHasStarred
+            stargazers {
+                totalCount
+            }
           }
         }
       }
@@ -35,15 +46,22 @@ export const STAR_REPOSITORY = gql`
   }
 `;
 
+export const UNSTAR_REPOSITORY = gql`
+  mutation($id: ID!) {
+    removeStar(input: { starrableId: $id }) {
+      starrable {
+        id
+        viewerHasStarred
+      }
+    }
+  }
+`;
+
 export const useStyles = makeStyles({
     card: {
         maxWidth: 100,
         margin: "auto",
         transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-        "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
-        }
     }
 });
 
@@ -51,14 +69,33 @@ export const App = () => (
     <Query query={GET_REPOSITORIES_OF_ORGANIZATION}>
         {({data: {organization}, loading}) => {
             if (loading || !organization) {
-                return <div>Loading ...</div>;
-            }
+                return <div>
+                    <Loader
+                        type="MutatingDots"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
 
+                    />
+                </div>
+            }
             return (
-                <Repositories repositories={organization.repositories}/>
+                <Router>
+                    <Switch>
+                        <Route path="/repositories">
+                            <Repositories repositories={organization.repositories}/>
+                        </Route>
+                        <Route path="/:name" component={organization.repositories.edges.node}>
+                            <Repository node={organization.repositories.edges.node}/>
+                        </Route>
+                    </Switch>
+                </Router>
             );
         }}
     </Query>
+
 );
+
 
 export default App;
