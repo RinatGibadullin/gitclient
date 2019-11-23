@@ -3,21 +3,12 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {makeStyles} from '@material-ui/core/styles';
 import './App.css';
-import Repositories from './RepositoryList/Repositories'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useLocation,
-    Link,
-    useRouteMatch,
-    useParams
-} from "react-router-dom";
-import Repository from "./Repository/Repository";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import {ThemeProvider} from "@material-ui/styles";
+import AppRouter from "./AppRouter";
+import NavBar from "./NavBar";
+import Container from "@material-ui/core/Container";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
   {
@@ -72,6 +63,7 @@ export const useStyles = makeStyles({
         maxWidth: 100,
         margin: "auto",
         transition: "0.3s",
+        textAlign: "center"
     }
 });
 
@@ -115,17 +107,12 @@ export const App = () => {
                 </div>
             }
             return (
-                    <Router>
-
-                        <Switch>
-                            <Route path="/repositories">
-                                <Repositories repositories={organization.repositories}/>
-                            </Route>
-                            <Route path="/repository/:name">
-                                <Repository/>
-                            </Route>
-                        </Switch>
-                    </Router>
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <AppRouter organization={organization.repositories}/>
+                    </Container>
+                </div>
             );
         }}
     </Query>
