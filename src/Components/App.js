@@ -8,12 +8,16 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useLocation,
     Link,
-    useRouteMatch
+    useRouteMatch,
+    useParams
 } from "react-router-dom";
 import Repository from "./Repository/Repository";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {ThemeProvider} from "@material-ui/styles";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
   {
@@ -41,6 +45,9 @@ export const STAR_REPOSITORY = gql`
       starrable {
         id
         viewerHasStarred
+        stargazers {
+            totalCount
+        }
       }
     }
   }
@@ -52,6 +59,9 @@ export const UNSTAR_REPOSITORY = gql`
       starrable {
         id
         viewerHasStarred
+        stargazers {
+            totalCount
+        }
       }
     }
   }
@@ -65,11 +75,35 @@ export const useStyles = makeStyles({
     }
 });
 
-export const App = () => (
-    <Query query={GET_REPOSITORIES_OF_ORGANIZATION}>
+
+export const theme = createMuiTheme({
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        htmlFontSize: 10
+    },
+});
+
+// function useQuery() {
+//     return new URLSearchParams(window.location().search);
+// }
+
+export const App = () => {
+    // const queryParams = useQuery();
+    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION}>
         {({data: {organization}, loading}) => {
             if (loading || !organization) {
-                return <div>
+                return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
                     <Loader
                         type="MutatingDots"
                         color="#00BFFF"
@@ -81,21 +115,21 @@ export const App = () => (
                 </div>
             }
             return (
-                <Router>
-                    <Switch>
-                        <Route path="/repositories">
-                            <Repositories repositories={organization.repositories}/>
-                        </Route>
-                        <Route path="/:name" component={organization.repositories.edges.node}>
-                            <Repository node={organization.repositories.edges.node}/>
-                        </Route>
-                    </Switch>
-                </Router>
+                    <Router>
+
+                        <Switch>
+                            <Route path="/repositories">
+                                <Repositories repositories={organization.repositories}/>
+                            </Route>
+                            <Route path="/repository/:name">
+                                <Repository/>
+                            </Route>
+                        </Switch>
+                    </Router>
             );
         }}
     </Query>
-
-);
+};
 
 
 export default App;

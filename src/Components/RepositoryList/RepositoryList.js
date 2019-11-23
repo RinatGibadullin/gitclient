@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Repository from "../Repository/Repository";
 import {Link} from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 const RepositoryList = ({
                             repositories,
@@ -33,20 +34,11 @@ const RepositoryList = ({
                                 <CardActionArea>
                                     <CardContent>
                                         <Button>
-                                            <Link to={`/${node.name}`}>{node.name}</Link>
+                                            <Link to={`/repository/${node.name}`}>{node.name}</Link>
                                         </Button>
-
-                                        <h2>{node.stargazers.totalCount}</h2>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button size="small" color="primary">
-                                        <Select
-                                            id={node.id}
-                                            isSelected={isSelected}
-                                            toggleSelectRepository={toggleSelectRepository}
-                                        />
-                                    </Button>
                                     <Button size="small" color="primary">
                                         {node.viewerHasStarred ? (
                                             <UnStar node={node}/>
@@ -54,6 +46,11 @@ const RepositoryList = ({
                                             <Star node={node}/>
                                         )}
                                     </Button>
+                                    <div>
+                                        <h3>
+                                            {node.stargazers.totalCount}
+                                        </h3>
+                                    </div>
                                 </CardActions>
                             </Card>
                         </li>
