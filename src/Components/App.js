@@ -11,8 +11,8 @@ import NavBar from "./NavBar";
 import Container from "@material-ui/core/Container";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
-  {
-    organization(login: "the-road-to-learn-react") {
+query Organization($login: String!){
+    organization(login: $login) {
       repositories(first: 20) {
         edges {
           node {
@@ -58,6 +58,15 @@ export const UNSTAR_REPOSITORY = gql`
   }
 `;
 
+export const GET_USER = gql`
+    {
+      viewer {
+        login
+        name
+      }
+    }
+`;
+
 export const useStyles = makeStyles({
     card: {
         maxWidth: 100,
@@ -92,7 +101,7 @@ export const theme = createMuiTheme({
 
 export const App = () => {
     // const queryParams = useQuery();
-    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION}>
+    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION} variables={{login: "the-road-to-learn-react"}}>
         {({data: {organization}, loading}) => {
             if (loading || !organization) {
                 return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
