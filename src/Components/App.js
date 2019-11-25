@@ -11,8 +11,8 @@ import NavBar from "./NavBar";
 import Container from "@material-ui/core/Container";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
-query Organization($login: String!){
-    organization(login: $login) {
+query User($login: String!){
+    user(login: $login) {
       repositories(first: 20) {
         edges {
           node {
@@ -101,9 +101,9 @@ export const theme = createMuiTheme({
 
 export const App = () => {
     // const queryParams = useQuery();
-    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION} variables={{login: "the-road-to-learn-react"}}>
-        {({data: {organization}, loading}) => {
-            if (loading || !organization) {
+    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION} variables={{login: "Adelina609"}}>
+        {({data: {user}, loading}) => {
+            if (loading || !user) {
                 return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
                     <Loader
                         type="MutatingDots"
@@ -119,7 +119,7 @@ export const App = () => {
                 <div>
                     <NavBar/>
                     <Container>
-                        <AppRouter organization={organization.repositories}/>
+                        <AppRouter organization={user.repositories}/>
                     </Container>
                 </div>
             );
