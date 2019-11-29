@@ -21,7 +21,9 @@ const NavBar = () => {
                     <Typography variant="h6" style={style}>
                         GitHub client
                     </Typography>
-                    <Button href="/repositories" color="inherit">Repositories</Button>
+                    {/*<Button href="/repositories" color="inherit">Repositories</Button>*/}
+                    <Button href="/search/repositories" color="inherit">Search repositories</Button>
+                    <Button href="/search/users" color="inherit">Search users</Button>
                     <Button href="/profile" color="inherit">Profile</Button>
                     <Button href="/login" color="inherit">Login</Button>
                 </Toolbar>

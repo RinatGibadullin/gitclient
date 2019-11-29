@@ -4,14 +4,23 @@ import Repositories from "./RepositoryList/Repositories";
 import Repository from "./Repository/Repository";
 import Login from "./Login";
 import Profile from "./Profile";
+import SearchRepositories from "./RepositoryList/SearchRepositories";
+import RepositoryList from "./RepositoryList/RepositoryList";
+import SearchUsers from "./User/SearchUsers";
 
-const AppRouter = ({organization}) => {
+const AppRouter = ({organization}, {search}) => {
     return(
         <div style={style}>
             <Router>
                 <Switch>
                     <Route path="/repositories">
-                        <Repositories repositories={organization}/>
+                        <RepositoryList repositories={search}/>
+                    </Route>
+                    <Route path="search/repositories">
+                        <SearchRepositories/>
+                    </Route>
+                    <Route path="search/users">
+                        <SearchUsers/>
                     </Route>
                     <Route path="/repository/:name">
                         <Repository/>

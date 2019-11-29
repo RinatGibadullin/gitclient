@@ -1,6 +1,5 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import {Query} from 'react-apollo';
 import {makeStyles} from '@material-ui/core/styles';
 import './App.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -9,6 +8,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import AppRouter from "./AppRouter";
 import NavBar from "./NavBar";
 import Container from "@material-ui/core/Container";
+import Query from "react-apollo/Query";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
 query User($login: String!){
@@ -28,6 +28,33 @@ query User($login: String!){
       }
     }
   }
+`;
+
+export const SEARCH_REPOSITORY_FUCK = gql`
+query {
+ search(query:"git", type:REPOSITORY, first:20){
+  repositoryCount
+  edges{
+   node{
+    ... on Repository{
+     id
+     name
+     createdAt 
+     description 
+     isArchived
+     isPrivate
+     url
+     owner{
+      login
+      id
+      __typename
+      url
+     }
+    }
+   }
+  }
+ }
+}
 `;
 
 export const STAR_REPOSITORY = gql`
@@ -101,30 +128,17 @@ export const theme = createMuiTheme({
 
 export const App = () => {
     // const queryParams = useQuery();
-    return <Query query={GET_REPOSITORIES_OF_ORGANIZATION} variables={{login: "Adelina609"}}>
-        {({data: {user}, loading}) => {
-            if (loading || !user) {
-                return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
-                    <Loader
-                        type="MutatingDots"
-                        color="#00BFFF"
-                        height={100}
-                        width={100}
-                        timeout={3000} //3 secs
-
-                    />
-                </div>
-            }
-            return (
-                <div>
-                    <NavBar/>
-                    <Container>
-                        <AppRouter organization={user.repositories}/>
-                    </Container>
-                </div>
-            );
-        }}
-    </Query>
+    // const { loading, error, data } = useQuery(SEARCH_REPOSITORY, {
+    //     variables: { language: 'english' },
+    // });
+    return (
+        <div>
+            <NavBar/>
+            <Container>
+                <AppRouter/>
+            </Container>
+        </div>
+    );
 };
 
 

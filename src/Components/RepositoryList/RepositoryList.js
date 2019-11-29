@@ -10,20 +10,13 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 
 const RepositoryList = ({
-                            repositories,
-                            selectedRepositoryIds,
-                            toggleSelectRepository,
+                            repositories
                         }) => (
         <ul>
             {repositories.edges.map(({node}) => {
-                const isSelected = selectedRepositoryIds.includes(node.id);
-
                 const rowClassName = ['row'];
 
-                if (isSelected) {
-                    rowClassName.push('row_selected');
-                }
-
+                console.log(repositories)
                 return (
                     <div>
                         <li className={rowClassName.join(' ')} key={node.id}>
