@@ -16,10 +16,10 @@ const AppRouter = ({organization}, {search}) => {
                     <Route path="/repositories">
                         <RepositoryList repositories={search}/>
                     </Route>
-                    <Route path="search/repositories">
+                    <Route path="/search/repositories">
                         <SearchRepositories/>
                     </Route>
-                    <Route path="search/users">
+                    <Route path="/search/users">
                         <SearchUsers/>
                     </Route>
                     <Route path="/repository/:name">

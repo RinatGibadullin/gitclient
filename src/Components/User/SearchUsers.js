@@ -4,9 +4,10 @@ import {Query} from "react-apollo";
 import gql from "graphql-tag";
 import UsersList from "./UsersList";
 
-const SEARCH_USER = gql`
-query($user: String!) {
-  search(query: $user, type: USER, first: 10) {
+
+export const SEARCH_USER = gql`
+query{
+  search(query: "rinatos", type: USER, first: 10) {
     nodes {
       ... on User {
         name
@@ -20,13 +21,15 @@ query($user: String!) {
 }
 `;
 
+
 const SearchUsers = () => {
     return (
-        <Query query={SEARCH_USER} variables={"rinat"}>
-            {({ loading,...search })  => {
-                return (
-                    <UsersList users={search} />
-                );
+        <Query query={SEARCH_USER}>
+            {({ loading, error, data }) => {
+                if (loading) return <p>Good things take time....</p>
+                if (error) return <p>Something went wrong...</p>
+
+                return <UsersList data={data}/>
             }}
         </Query>
     )

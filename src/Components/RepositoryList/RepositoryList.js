@@ -14,12 +14,10 @@ const RepositoryList = ({
                         }) => (
         <ul>
             {repositories.edges.map(({node}) => {
-                const rowClassName = ['row'];
-
                 console.log(repositories)
                 return (
                     <div>
-                        <li className={rowClassName.join(' ')} key={node.id}>
+                        <li key={node.id}>
                             <Card className={useStyles.card}>
                                 <CardActionArea>
                                     <CardContent>
