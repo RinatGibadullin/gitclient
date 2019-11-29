@@ -77,6 +77,9 @@ const Profile = () => {
                         <Typography component="p">
                             {viewer.login}
                         </Typography>
+                        <Typography component="p">
+                            {viewer.bio}
+                        </Typography>
                     </Paper>
                     <hr/>
                     <Typography variant="h5" component="h3">
