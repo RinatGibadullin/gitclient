@@ -9,10 +9,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 
-const SearchRepositoriesList = ({data}) => (
-        <ul>
-            {data.search.edges.map(({node}) => {
-                return (
+const SearchRepositoriesList = ({data}) =>
+        data.search.edges.map(({node}) => {
+            if (node.id == null) return (
+                <p>No matches</p>
+            )
+            return (
+                <ul>
                     <li key={node.id}>
                         <Card className={useStyles.card}>
                             <CardActionArea>
@@ -38,10 +41,9 @@ const SearchRepositoriesList = ({data}) => (
                             </CardActions>
                         </Card>
                     </li>
-                );
-            })}
-        </ul>
-    )
+                </ul>
+            );
+        })
 ;
 
 export default SearchRepositoriesList;

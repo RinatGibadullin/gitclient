@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React from "react";
-import Repositories from "./RepositoryList/Repositories";
 import Repository from "./Repository/Repository";
 import Login from "./Login";
 import Profile from "./Profile";
