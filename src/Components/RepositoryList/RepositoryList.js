@@ -16,13 +16,12 @@ const RepositoryList = ({
             {repositories.edges.map(({node}) => {
                 console.log(repositories)
                 return (
-                    <div>
                         <li key={node.id}>
                             <Card className={useStyles.card}>
                                 <CardActionArea>
                                     <CardContent>
                                         <Button>
-                                            <Link to={`/repository/${node.name}`}>{node.name}</Link>
+                                            <Link to={`/repository/${node.owner.login}/${node.name}`}>{node.name}</Link>
                                         </Button>
                                     </CardContent>
                                 </CardActionArea>
@@ -42,7 +41,6 @@ const RepositoryList = ({
                                 </CardActions>
                             </Card>
                         </li>
-                    </div>
                 );
             })}
         </ul>

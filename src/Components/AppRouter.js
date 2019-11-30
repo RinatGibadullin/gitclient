@@ -22,7 +22,7 @@ const AppRouter = ({organization}, {search}) => {
                     <Route path="/search/users">
                         <SearchUsers/>
                     </Route>
-                    <Route path="/:login/:name">
+                    <Route path="/repository/:login/:name">
                         <Repository/>
                     </Route>
                     <Route path="/user/:id">

@@ -7,6 +7,8 @@ import {Query} from "react-apollo";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import gql from "graphql-tag";
 import RepositoryList from "./RepositoryList/RepositoryList";
+import {useStyles} from "./User/User";
+import Avatar from "@material-ui/core/Avatar";
 
 const GET_CURRENT_USER = gql`
 query {
@@ -44,12 +46,6 @@ query {
 }
 `;
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(3, 2),
-        textAlign: "center"
-    },
-}));
 
 const Profile = () => {
     const classes = useStyles();
@@ -69,23 +65,37 @@ const Profile = () => {
                 </div>
             }
             return (
-                <div>
-                    <Paper className={classes.root}>
-                        <Typography variant="h5" component="h3">
-                            {viewer.name}
-                        </Typography>
-                        <Typography component="p">
-                            {viewer.login}
-                        </Typography>
+                <div className={classes.root}>
+                    <Paper className={classes.userInfo}>
+                        {/*<Image style={{width: '50px', height: '50px'}}*/}
+                        {/*       src={node.avatarUrl}*/}
+                        {/*/>*/}
+                        <Avatar variant="square"
+                                src={viewer.avatarUrl}
+                                style={{width: '300px', height: '300px'}}
+                        />
+                        <div>
+                            <Typography variant="h3" component="h3">
+                                {viewer.name}
+                            </Typography>
+                            <Typography variant="h5" component="h5">
+                                {viewer.login}
+                            </Typography>
+                        </div>
                         <Typography component="p">
                             {viewer.bio}
                         </Typography>
                     </Paper>
-                    <hr/>
-                    <Typography variant="h5" component="h3">
-                        Repositories
-                    </Typography>
-                    <RepositoryList repositories={viewer.repositories}/>
+                    <div className={classes.repositories}>
+                        <Typography variant="h5" component="h3">
+                            Repositories
+                        </Typography>
+                        <hr/>
+                        <div >
+                            <RepositoryList
+                                repositories={viewer.repositories}/>
+                        </div>
+                    </div>
                 </div>
             );
         }}

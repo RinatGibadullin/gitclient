@@ -93,7 +93,7 @@ const Repository = () => {
             return (
                 <div>
                     <Paper className={classes.root}>
-                        <div style={{display: 'inline'}}>
+                        <div>
                             <Typography component="p">
                                 {repositoryOwner.repository.owner.login}/{repositoryOwner.repository.name}
                             </Typography>
