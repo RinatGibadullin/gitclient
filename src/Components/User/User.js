@@ -10,7 +10,6 @@ import {Query} from "react-apollo";
 import Loader from "react-loader-spinner";
 import gql from "graphql-tag";
 import RepositoryList from "../RepositoryList/RepositoryList";
-import Image from "material-ui-image";
 import Avatar from "@material-ui/core/Avatar";
 
 

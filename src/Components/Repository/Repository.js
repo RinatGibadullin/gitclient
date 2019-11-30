@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css';
 import {
+    Link,
     useParams
 } from "react-router-dom";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -95,7 +96,11 @@ const Repository = () => {
                     <Paper className={classes.root}>
                         <div>
                             <Typography component="p">
-                                {repositoryOwner.repository.owner.login}/{repositoryOwner.repository.name}
+                                <Link to={`/user/${repositoryOwner.repository.owner.id}`}>
+                                    {repositoryOwner.repository.owner.login}
+                                </Link>
+                                /
+                                {repositoryOwner.repository.name}
                             </Typography>
                         </div>
                         <Typography variant="h3" component="h3">

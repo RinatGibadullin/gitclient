@@ -4,7 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Loader from "react-loader-spinner";
 import {Query} from "react-apollo";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import gql from "graphql-tag";
 import RepositoryList from "./RepositoryList/RepositoryList";
 import {useStyles} from "./User/User";
