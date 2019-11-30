@@ -10,24 +10,24 @@ import CardMedia from "@material-ui/core/CardMedia";
 
 
 const SearchUsersList = ({data}) =>
-    data.search.nodes.map(({id, name, login, bio, avatarUrl}) => {
+    data.search.edges.map(({node}) => {
         return (
             <ul>
                 <li>
-                    <div key={id}>
+                    <div key={node.id}>
                         <Card className={useStyles.card}>
                             <CardActionArea>
                                 <CardMedia
                                     className={useStyles.media}
                                     square
-                                    imageUrl={avatarUrl}
+                                    imageUrl={node.avatarUrl}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        <Link to={`/user/${login}`}>{login}</Link>
+                                        <Link to={`/user/${node.id}`}>{node.login}</Link>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {bio}
+                                        {node.bio}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

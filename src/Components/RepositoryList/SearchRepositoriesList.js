@@ -21,7 +21,7 @@ const SearchRepositoriesList = ({data}) =>
                             <CardActionArea>
                                 <CardContent>
                                     <Button>
-                                        <Link to={`/repository/${node.name}`}>{node.name}</Link>
+                                        <Link to={`/${node.owner.login}/${node.name}`}>{node.name}</Link>
                                     </Button>
                                 </CardContent>
                             </CardActionArea>

@@ -13,7 +13,7 @@ const style = {
 const NavBar = () => {
     return (
         <div>
-            <AppBar color="" position="static">
+            <AppBar style={{ background: '#2e3b55' }} position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="Menu">
                         <MenuIcon/>

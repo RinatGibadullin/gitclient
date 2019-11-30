@@ -11,13 +11,16 @@ import Loader from "react-loader-spinner";
 export const SEARCH_USER = gql`
 query ($user: String!){
   search(query: $user, type: USER, first: 30) {
-    nodes {
+    edges{
+      node {
       ... on User {
-        name
-        login
-        avatarUrl
-        url
-        bio
+            id
+            name
+            login
+            avatarUrl
+            url
+            bio
+          }
       }
     }
   }

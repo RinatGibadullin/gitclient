@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import SearchRepositories from "./RepositoryList/SearchRepositories";
 import RepositoryList from "./RepositoryList/RepositoryList";
 import SearchUsers from "./User/SearchUsers";
+import User from "./User/User";
 
 const AppRouter = ({organization}, {search}) => {
     return(
@@ -21,8 +22,11 @@ const AppRouter = ({organization}, {search}) => {
                     <Route path="/search/users">
                         <SearchUsers/>
                     </Route>
-                    <Route path="/repository/:name">
+                    <Route path="/:login/:name">
                         <Repository/>
+                    </Route>
+                    <Route path="/user/:id">
+                        <User/>
                     </Route>
                     <Route path="/login">
                         <Login/>
