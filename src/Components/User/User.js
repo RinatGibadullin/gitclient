@@ -11,17 +11,21 @@ import Loader from "react-loader-spinner";
 import gql from "graphql-tag";
 import RepositoryList from "../RepositoryList/RepositoryList";
 import Avatar from "@material-ui/core/Avatar";
+import FollowUser from "./FollowUser";
+import UnFollowUser from "./UnFollowUser";
 
 
 const GET_USER = gql`
 query($id: ID!){
     node(id: $id) {
         ... on User {
+            id
             name
             login
             avatarUrl
             url
             bio
+            viewerIsFollowing
             repositories(first: 5
                         orderBy: { direction: DESC, field: STARGAZERS }) {
                 edges {
@@ -92,9 +96,6 @@ const User = () => {
             return (
                 <div className={classes.root}>
                     <Paper className={classes.userInfo}>
-                        {/*<Image style={{width: '50px', height: '50px'}}*/}
-                        {/*       src={node.avatarUrl}*/}
-                        {/*/>*/}
                         <Avatar variant="square"
                                 src={node.avatarUrl}
                                 style={{width: '300px', height: '300px'}}
@@ -110,6 +111,11 @@ const User = () => {
                         <Typography component="p">
                             {node.bio}
                         </Typography>
+                        {node.viewerIsFollowing ? (
+                            <UnFollowUser node={node}/>
+                        ) : (
+                            <FollowUser node={node}/>
+                        )}
                     </Paper>
                     <div className={classes.repositories}>
                         <Typography variant="h5" component="h3">
@@ -117,8 +123,7 @@ const User = () => {
                         </Typography>
                         <hr/>
                         <div >
-                            <RepositoryList
-                                            repositories={node.repositories}/>
+                            <RepositoryList repositories={node.repositories}/>
                         </div>
                     </div>
                 </div>

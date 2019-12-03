@@ -66,9 +66,6 @@ const Profile = () => {
             return (
                 <div className={classes.root}>
                     <Paper className={classes.userInfo}>
-                        {/*<Image style={{width: '50px', height: '50px'}}*/}
-                        {/*       src={node.avatarUrl}*/}
-                        {/*/>*/}
                         <Avatar variant="square"
                                 src={viewer.avatarUrl}
                                 style={{width: '300px', height: '300px'}}
