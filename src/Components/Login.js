@@ -13,11 +13,6 @@ import Container from '@material-ui/core/Container';
 
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -37,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Login() {
+const Login = () => {
     const classes = useStyles();
 
     return (
@@ -78,4 +73,5 @@ export default function Login() {
             </div>
         </Container>
     );
-}
+};
+export default Login;

@@ -10,12 +10,26 @@ import Typography from "@material-ui/core/Typography";
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
 import Loader from "react-loader-spinner";
+import Button from "@material-ui/core/Button";
+import UnStar from "../RepositoryList/UnStar";
+import Star from "../RepositoryList/Star";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
-        textAlign: "center"
+        textAlign: "center",
+
     },
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        margin: "10px"
+    },
+    item: {
+        margin: "10px"
+    }
 }));
 
 
@@ -54,6 +68,9 @@ query ($login: String!, $repo: String!){
       pullRequests {
         totalCount
       }
+      commitComments {
+          totalCount
+      }
       labels(first:10) {
         edges {
           node {
@@ -78,7 +95,7 @@ const Repository = () => {
     // console.log({name});
     const classes = useStyles();
     return <Query query={GET_REPOSITORY} variables={{login: login, repo: name}}>
-        {({ data: {repositoryOwner}, loading}) => {
+        {({data: {repositoryOwner}, loading}) => {
             if (loading || !repositoryOwner) {
                 return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
                     <Loader
@@ -103,12 +120,39 @@ const Repository = () => {
                                 {repositoryOwner.repository.name}
                             </Typography>
                         </div>
-                        <Typography variant="h3" component="h3">
-                            {repositoryOwner.repository.name}
-                        </Typography>
-                        <Typography component="p">
+                        <div className={classes.row}>
+                            <Typography variant="h3" component="h3">
+                                {repositoryOwner.repository.name}
+                            </Typography>
+                            <Button size="small" color="primary">
+                                {repositoryOwner.repository.viewerHasStarred ? (
+                                    <UnStar node={repositoryOwner.repository}/>
+                                ) : (
+                                    <Star node={repositoryOwner.repository}/>
+                                )}
+                            </Button>
+                            <div>
+                                <h3>
+                                    {repositoryOwner.repository.stargazers.totalCount}
+                                </h3>
+                            </div>
+                        </div>
+                        <Typography className={classes.item} component="p">
                             {repositoryOwner.repository.description}
                         </Typography>
+
+                        <ButtonGroup
+                            color="secondary"
+                            size="large"
+                            aria-label="large outlined secondary button group"
+                            className={classes.item}
+                        >
+                            <Button>{repositoryOwner.repository.forks.totalCount} forks</Button>
+                            <Button>{repositoryOwner.repository.pullRequests.totalCount} pull requests</Button>
+                            <Button>{repositoryOwner.repository.watchers.totalCount} watchers</Button>
+                            <Button>{repositoryOwner.repository.commitComments.totalCount} commits</Button>
+
+                        </ButtonGroup>
                     </Paper>
                 </div>
             );

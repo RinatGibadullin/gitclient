@@ -30,13 +30,12 @@ query ($user: String!){
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
-        flexWrap: 'wrap',
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: 200,
-        align: "center"
+        justifyContent: "center"
     },
 }));
 
@@ -46,19 +45,21 @@ const SearchUsers = () => {
     const [input, setInput] = useState("");
     return (
         <div>
-            <TextField
-                id="outlined-search"
-                name="name"
-                label="Search users"
-                type="search"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                value={input}
-                onChange={event => {
-                    setInput(event.target.value);
-                }}
-            />
+            <div className={classes.container}>
+                <TextField
+                    id="outlined-search"
+                    name="name"
+                    label="Search users"
+                    type="search"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
+                    value={input}
+                    onChange={event => {
+                        setInput(event.target.value);
+                    }}
+                />
+            </div>
             <Query query={SEARCH_USER} variables={{user: input}}>
                 {({loading, error, data}) => {
                     if (loading) return (

@@ -49,8 +49,8 @@ query {
 const Profile = () => {
     const classes = useStyles();
     return <Query query={GET_CURRENT_USER}>
-        {({ data, loading}) => {
-            const { viewer } = data;
+        {({data, loading}) => {
+            const {viewer} = data;
             if (loading || !viewer) {
                 return <div style={{position: 'fixed', top: '50%', left: '50%'}}>
                     <Loader
@@ -87,7 +87,7 @@ const Profile = () => {
                             Repositories
                         </Typography>
                         <hr/>
-                        <div >
+                        <div>
                             <RepositoryList
                                 repositories={viewer.repositories}/>
                         </div>
