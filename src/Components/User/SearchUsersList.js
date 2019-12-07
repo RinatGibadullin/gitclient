@@ -1,7 +1,6 @@
 import Card from "@material-ui/core/Card";
 import {useStyles} from "../App";
 import '../App.css';
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import {Link} from "react-router-dom";
 import React from "react";
@@ -16,12 +15,12 @@ const SearchUsersList = ({data}) =>
                 <li>
                     <div key={node.id}>
                         <Card className={useStyles.card}>
-                            <div>
+                            <span>
                                 <Avatar variant="square"
                                         src={node.avatarUrl}
                                         style={{width: '100px', height: '100px'}}
                                 />
-                            </div>
+                            </span>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     <Link to={`/user/${node.id}`}>{node.login}</Link>
