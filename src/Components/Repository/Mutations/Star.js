@@ -21,27 +21,16 @@ const STAR_REPOSITORY = gql`
 
 export const useStyles = makeStyles(theme => ({
     root: {
-        '& > .fa': {
-            margin: theme.spacing(5),
-        },
+            margin: "5px",
     },
 }));
 
 const Star = ({node}) => {
     const {id} = node;
     const classes = useStyles();
-
-    React.useEffect(() => {
-        loadCSS(
-            'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
-            document.querySelector('#font-awesome-css'),
-        );
-    }, []);
     return <Mutation mutation={STAR_REPOSITORY} variables={{id}}>
         {starRepository => (
-            <div className={classes.root}>
-                <Icon onClick={starRepository} className="far fa-star" style={{cursor: 'pointer'}}/>
-            </div>
+            <i onClick={starRepository} className="far fa-star fa-2x" style={{cursor: 'pointer'}}/>
         )}
     </Mutation>
 };

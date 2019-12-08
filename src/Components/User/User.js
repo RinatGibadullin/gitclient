@@ -11,8 +11,8 @@ import Loader from "react-loader-spinner";
 import gql from "graphql-tag";
 import RepositoryList from "../RepositoryList/RepositoryList";
 import Avatar from "@material-ui/core/Avatar";
-import FollowUser from "./FollowUser";
-import UnFollowUser from "./UnFollowUser";
+import FollowUser from "./Mutations/FollowUser";
+import UnFollowUser from "./Mutations/UnFollowUser";
 
 
 const GET_USER = gql`
@@ -25,8 +25,12 @@ query($id: ID!){
             avatarUrl
             url
             bio
+            company
+            isViewer
+            location
+            websiteUrl
             viewerIsFollowing
-            repositories(first: 5
+            repositories(first: 10
                         orderBy: { direction: DESC, field: STARGAZERS }) {
                 edges {
                     node {
@@ -63,7 +67,7 @@ export const useStyles = makeStyles(theme => ({
     userInfo: {
         padding: theme.spacing(3, 2),
         margin: "20px",
-        width: "auto",
+        width: "300px",
         height: "50%",
         display: "flex",
         flexDirection: "column",
@@ -72,6 +76,9 @@ export const useStyles = makeStyles(theme => ({
     repositories: {
         width: "50%",
         padding: theme.spacing(3, 2),
+    },
+    item: {
+        padding: theme.spacing(2, 2),
     }
 }));
 
@@ -100,17 +107,27 @@ const User = () => {
                                 src={node.avatarUrl}
                                 style={{width: '300px', height: '300px'}}
                         />
-                        <div>
+                        <div className={classes.item}>
                             <Typography variant="h3" component="h3">
                                 {node.name}
                             </Typography>
                             <Typography variant="h5" component="h5">
-                                {node.login}
+                                Login: {node.login}
+                            </Typography>
+                            <Typography component="p">
+                                {node.bio}
+                            </Typography>
+                            <hr/>
+                            <Typography variant="subtitle2">
+                                COMPANY: {node.company}
+                            </Typography>
+                            <Typography variant="subtitle2">
+                                LOCATION: {node.location}
+                            </Typography>
+                            <Typography variant="subtitle2">
+                                WEBSITE: {node.websiteUrl}
                             </Typography>
                         </div>
-                        <Typography component="p">
-                            {node.bio}
-                        </Typography>
                         {node.viewerIsFollowing ? (
                             <UnFollowUser node={node}/>
                         ) : (
@@ -122,7 +139,7 @@ const User = () => {
                             Repositories
                         </Typography>
                         <hr/>
-                        <div >
+                        <div>
                             <RepositoryList repositories={node.repositories}/>
                         </div>
                     </div>

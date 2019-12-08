@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React from "react";
 import Repository from "./Repository/Repository";
 import Login from "./Login";
-import Profile from "./Profile";
+import Profile from "./User/Profile";
 import SearchRepositories from "./RepositoryList/SearchRepositories";
 import RepositoryList from "./RepositoryList/RepositoryList";
 import SearchUsers from "./User/SearchUsers";

@@ -13,6 +13,7 @@ query ($user: String!){
   search(query: $user, type: USER, first: 30) {
     edges{
       node {
+      __typename
       ... on User {
             id
             name

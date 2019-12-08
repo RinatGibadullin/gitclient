@@ -11,24 +11,25 @@ import gql from "graphql-tag";
 import {Query} from "react-apollo";
 import Loader from "react-loader-spinner";
 import Button from "@material-ui/core/Button";
-import UnStar from "../RepositoryList/UnStar";
-import Star from "../RepositoryList/Star";
+import UnStar from "./Mutations/UnStar";
+import Star from "./Mutations/Star";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import CommitsList from "./CommitsList";
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
         textAlign: "center",
-
+        margin: "10px",
     },
     row: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        margin: "10px"
+        margin: "10px",
     },
     item: {
-        margin: "10px"
+        margin: "10px",
     }
 }));
 
@@ -68,8 +69,14 @@ query ($login: String!, $repo: String!){
       pullRequests {
         totalCount
       }
-      commitComments {
+      commitComments(first: 50) {
           totalCount
+          edges{
+            node{
+                bodyText
+                createdAt
+            }
+          }
       }
       labels(first:10) {
         edges {
@@ -111,36 +118,6 @@ const Repository = () => {
             return (
                 <div>
                     <Paper className={classes.root}>
-                        <div>
-                            <Typography component="p">
-                                <Link to={`/user/${repositoryOwner.repository.owner.id}`}>
-                                    {repositoryOwner.repository.owner.login}
-                                </Link>
-                                /
-                                {repositoryOwner.repository.name}
-                            </Typography>
-                        </div>
-                        <div className={classes.row}>
-                            <Typography variant="h3" component="h3">
-                                {repositoryOwner.repository.name}
-                            </Typography>
-                            <Button size="small" color="primary">
-                                {repositoryOwner.repository.viewerHasStarred ? (
-                                    <UnStar node={repositoryOwner.repository}/>
-                                ) : (
-                                    <Star node={repositoryOwner.repository}/>
-                                )}
-                            </Button>
-                            <div>
-                                <h3>
-                                    {repositoryOwner.repository.stargazers.totalCount}
-                                </h3>
-                            </div>
-                        </div>
-                        <Typography className={classes.item} component="p">
-                            {repositoryOwner.repository.description}
-                        </Typography>
-
                         <ButtonGroup
                             color="secondary"
                             size="large"
@@ -153,7 +130,44 @@ const Repository = () => {
                             <Button>{repositoryOwner.repository.commitComments.totalCount} commits</Button>
 
                         </ButtonGroup>
+                        <div className={classes.item}>
+                            <Typography component="p">
+                                <Link to={`/user/${repositoryOwner.repository.owner.id}`}>
+                                    {repositoryOwner.repository.owner.login}
+                                </Link>
+                                /
+                                {repositoryOwner.repository.name}
+                            </Typography>
+                        </div>
+                        <div className={classes.row}>
+                            <Typography variant="h1" component="h2" className={classes.item}>
+                                {repositoryOwner.repository.name}
+                            </Typography>
+                            {repositoryOwner.repository.viewerHasStarred ? (
+                                <div className={classes.item}>
+                                    <UnStar node={repositoryOwner.repository}/>
+                                </div>
+                            ) : (
+                                <div className={classes.item}>
+                                    <Star node={repositoryOwner.repository}/>
+                                </div>
+                            )}
+                            <Typography variant="h5" component="h5" className={classes.item}>
+                                Stars: {repositoryOwner.repository.stargazers.totalCount}
+                            </Typography>
+                            <Typography variant="h5" component="h5" className={classes.item}>
+                                Watchers: {repositoryOwner.repository.watchers.totalCount}
+                            </Typography>
+                        </div>
+                        <Typography className={classes.item} component="p">
+                            {repositoryOwner.repository.description}
+                        </Typography>
                     </Paper>
+                    <Typography variant="h5" component="h3">
+                        Commits
+                    </Typography>
+                    <hr/>
+                    <CommitsList commits={repositoryOwner.repository.commitComments}/>
                 </div>
             );
         }}

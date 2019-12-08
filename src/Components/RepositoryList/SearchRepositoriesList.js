@@ -1,7 +1,7 @@
 import React from "react";
 import {useStyles} from "../App";
-import Star from './Star'
-import UnStar from './UnStar'
+import Star from '../Repository/Mutations/Star'
+import UnStar from '../Repository/Mutations/UnStar'
 import Card from "@material-ui/core/Card";
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +14,6 @@ const SearchRepositoriesList = ({data}) =>
                 <p>No matches</p>
             )
             return (
-                <ul>
                     <li key={node.id}>
                         <Card className={useStyles.card}>
                                 <CardContent>
@@ -36,7 +35,6 @@ const SearchRepositoriesList = ({data}) =>
                             </CardActions>
                         </Card>
                     </li>
-                </ul>
             );
         })
 ;

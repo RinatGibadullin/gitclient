@@ -11,7 +11,6 @@ import Avatar from "@material-ui/core/Avatar";
 const SearchUsersList = ({data}) =>
     data.search.edges.map(({node}) => {
         return (
-            <ul>
                 <li>
                     <div key={node.id}>
                         <Card className={useStyles.card}>
@@ -32,7 +31,6 @@ const SearchUsersList = ({data}) =>
                         </Card>
                     </div>
                 </li>
-            </ul>
         );
     });
 

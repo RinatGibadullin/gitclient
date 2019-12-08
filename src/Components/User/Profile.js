@@ -1,13 +1,14 @@
 import React from 'react'
-import './App.css';
+import '../App.css';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Loader from "react-loader-spinner";
 import {Query} from "react-apollo";
 import gql from "graphql-tag";
-import RepositoryList from "./RepositoryList/RepositoryList";
-import {useStyles} from "./User/User";
+import RepositoryList from "../RepositoryList/RepositoryList";
+import {useStyles} from "./User";
 import Avatar from "@material-ui/core/Avatar";
+import Icon from "@material-ui/core/Icon";
 
 const GET_CURRENT_USER = gql`
 query {
@@ -17,6 +18,9 @@ query {
         avatarUrl
         url
         bio
+        company
+        location
+        websiteUrl
         repositories(
             first: 5
             orderBy: { direction: DESC, field: STARGAZERS }
@@ -70,17 +74,30 @@ const Profile = () => {
                                 src={viewer.avatarUrl}
                                 style={{width: '300px', height: '300px'}}
                         />
-                        <div>
+                        <div className={classes.item}>
                             <Typography variant="h3" component="h3">
                                 {viewer.name}
                             </Typography>
                             <Typography variant="h5" component="h5">
-                                {viewer.login}
+                                Login: {viewer.login}
+                            </Typography>
+                            <Typography component="p">
+                                {viewer.bio}
+                            </Typography>
+                            <hr/>
+                            <Typography variant="subtitle2">
+                                <i className="fas fa-building fa-2x" />
+                                COMPANY: {viewer.company}
+                            </Typography>
+                            <Typography variant="subtitle2">
+                                <i className="fas fa-map-marker-alt fa-2x"/>
+                                LOCATION: {viewer.location}
+                            </Typography>
+                            <Typography variant="subtitle2">
+                                <i className="fab fa-superpowers fa-2x"></i>
+                                WEBSITE: {viewer.websiteUrl}
                             </Typography>
                         </div>
-                        <Typography component="p">
-                            {viewer.bio}
-                        </Typography>
                     </Paper>
                     <div className={classes.repositories}>
                         <Typography variant="h5" component="h3">

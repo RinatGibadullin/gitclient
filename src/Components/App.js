@@ -9,8 +9,8 @@ import NavBar from "./NavBar";
 import Container from "@material-ui/core/Container";
 
 export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
-query User($login: String!){
-    user(login: $login) {
+query getOrganization($login: String!){
+    organization(login: $login) {
       repositories(first: 20) {
         edges {
           node {
