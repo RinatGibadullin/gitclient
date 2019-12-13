@@ -23,12 +23,11 @@ export const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Star = ({node}) => {
-    const {id} = node;
-    return <Mutation mutation={STAR_REPOSITORY} variables={{id}}>
+const Star = ({node: id}) => (
+    <Mutation mutation={STAR_REPOSITORY} variables={{id}}>
         {starRepository => (
             <i onClick={starRepository} className="far fa-star fa-2x" style={{cursor: 'pointer'}}/>
         )}
     </Mutation>
-};
+);
 export default Star;

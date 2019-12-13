@@ -17,12 +17,10 @@ const UNSTAR_REPOSITORY = gql`
 `;
 
 
-const UnStar = ({node}) => {
-    const {id} = node;
-    return <Mutation mutation={UNSTAR_REPOSITORY} variables={{id}}>
+const UnStar = ({node: id}) => (
+    <Mutation mutation={UNSTAR_REPOSITORY} variables={{id}}>
         {unStarRepository => (
             <i onClick={unStarRepository} className="fas fa-star fa-2x" style={{cursor: 'pointer'}}/>
         )}
-    </Mutation>
-};
+    </Mutation>);
 export default UnStar;

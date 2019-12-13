@@ -7,14 +7,14 @@ import {
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import gql from "graphql-tag";
 import {Query} from "react-apollo";
 import Loader from "react-loader-spinner";
 import Button from "@material-ui/core/Button";
-import UnStar from "./Mutations/UnStar";
-import Star from "./Mutations/Star";
+import UnStar from "../graphql/Mutations/UnStar";
+import Star from "../graphql/Mutations/Star";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import CommitsList from "./CommitsList";
+import {GET_REPOSITORY} from "../graphql/Queries/GET_REPOSITORY";
 
 export const useStyles = makeStyles(theme => ({
     root: {
@@ -34,72 +34,8 @@ export const useStyles = makeStyles(theme => ({
 }));
 
 
-const GET_REPOSITORY = gql`
-query ($login: String!, $repo: String!){
-  repositoryOwner (login: $login) {
-    repositories {
-      totalCount
-    }
-    repository(name: $repo) {
-      id
-      name
-      createdAt 
-      description 
-      isArchived
-      isPrivate
-      url
-      owner {
-         login
-         id
-         url
-      }
-      viewerHasStarred
-      forks {
-        totalCount
-      }
-      issues {
-        totalCount
-      }
-      stargazers {
-        totalCount
-      }
-      watchers {
-        totalCount
-      }
-      pullRequests {
-        totalCount
-      }
-      commitComments(first: 50) {
-          totalCount
-          edges{
-            node{
-                bodyText
-                createdAt
-            }
-          }
-      }
-      labels(first:10) {
-        edges {
-          node {
-            name
-          }
-        }
-      }
-      milestones(first:10) {
-        edges {
-          node {
-            title
-          }
-        }
-      }
-    }
-  }
-}
-`;
-
 const Repository = () => {
     let {login, name} = useParams();
-    // console.log({name});
     const classes = useStyles();
     return <Query query={GET_REPOSITORY} variables={{login: login, repo: name}}>
         {({data: {repositoryOwner}, loading}) => {

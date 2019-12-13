@@ -8,35 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-
-const SEARCH_REPOSITORY = gql`
-query($name: String!){
-    search(query: $name, type: REPOSITORY, first: 30) {
-      edges {
-        node {
-          ... on Repository {
-            id
-            name
-            createdAt 
-            description 
-            isArchived
-            isPrivate
-            url
-            owner{
-                login
-                id
-                url
-            }
-            viewerHasStarred
-            stargazers {
-                totalCount
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import {SEARCH_REPOSITORIES} from "../graphql/Queries/SEARCH_REPOSITORIES";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -76,7 +48,7 @@ const SearchRepositories = () => {
                     }}
                 />
             </div>
-            <Query query={SEARCH_REPOSITORY} variables={{name: input}}>
+            <Query query={SEARCH_REPOSITORIES} variables={{name: input}}>
                 {({loading, error, data}) => {
                     if (loading) return (
                         <div style={{position: 'fixed', top: '50%', left: '50%'}}>

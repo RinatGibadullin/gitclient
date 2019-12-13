@@ -8,6 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import App from './Components/App';
 
 import registerServiceWorker from './registerServiceWorker';
+import {token} from "./Components/NavBar";
 
 const cache = new InMemoryCache();
 

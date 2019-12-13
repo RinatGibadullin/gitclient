@@ -1,33 +1,12 @@
 import React, {useState} from "react";
 import '../App.css';
 import {Query} from "react-apollo";
-import gql from "graphql-tag";
 import SearchUsersList from "./SearchUsersList";
 import {makeStyles, Paper} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Loader from "react-loader-spinner";
 import Typography from "@material-ui/core/Typography";
-
-
-export const SEARCH_USER = gql`
-query ($user: String!){
-  search(query: $user, type: USER, first: 30) {
-    edges{
-      node {
-      __typename
-      ... on User {
-            id
-            name
-            login
-            avatarUrl
-            url
-            bio
-          }
-      }
-    }
-  }
-}
-`;
+import {SEARCH_USERS} from "../graphql/Queries/SEARCH_USERS";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -67,7 +46,7 @@ const SearchUsers = () => {
                     }}
                 />
             </div>
-            <Query query={SEARCH_USER} variables={{user: input}}>
+            <Query query={SEARCH_USERS} variables={{user: input}}>
                 {({loading, error, data}) => {
                     if (loading) return (
                         <div style={{position: 'fixed', top: '50%', left: '50%'}}>
@@ -76,7 +55,7 @@ const SearchUsers = () => {
                                 color="#00BFFF"
                                 height={100}
                                 width={100}
-                                timeout={3000} //3 secs
+                                timeout={3000}
 
                             />
                         </div>

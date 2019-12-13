@@ -4,56 +4,16 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Loader from "react-loader-spinner";
 import {Query} from "react-apollo";
-import gql from "graphql-tag";
 import RepositoryList from "../RepositoryList/RepositoryList";
 import {useStyles} from "./User";
 import Avatar from "@material-ui/core/Avatar";
 import {IsTokenValid} from "../Login";
-
-export const GET_CURRENT_USER = gql`
-query {
-    viewer {
-        name
-        login
-        avatarUrl
-        url
-        bio
-        company
-        location
-        websiteUrl
-        repositories(
-            first: 5
-            orderBy: { direction: DESC, field: STARGAZERS }
-        ) {
-            edges {
-                node {
-                    id
-                    name
-                    url
-                    descriptionHTML
-                    owner {
-                      login
-                      url
-                    }
-                    stargazers {
-                      totalCount
-                    }
-                    viewerHasStarred
-                    watchers {
-                      totalCount
-                    }
-                }
-            }
-        }
-    }
-}
-`;
-
+import {GET_CURRENT_USER} from "../graphql/Queries/GET_CURRENT_USER";
 
 const Profile = () => {
     const classes = useStyles();
     return (<div>
-        {IsTokenValid() ? (
+        {/*{IsTokenValid() ? (*/}
                 <Query query={GET_CURRENT_USER}>
                     {({data, loading}) => {
                         if (!data) return (
@@ -72,7 +32,7 @@ const Profile = () => {
                                     color="#00BFFF"
                                     height={100}
                                     width={100}
-                                    timeout={3000} //3 secs
+                                    timeout={3000}
 
                                 />
                             </div>
@@ -122,14 +82,14 @@ const Profile = () => {
                             </div>
                         );
                     }}
-                </Query>) :
-            (
-                <Paper className={classes.centerRow} style={{backgroundColor: "#FF9E71"}}>
-                    <Typography variant="h3" component="h3" >
-                        To see this page you need to sign in!
-                    </Typography>
-                </Paper>
-            )}
+                </Query>
+        {/*) : (*/}
+        {/*        <Paper className={classes.centerRow} style={{backgroundColor: "#FF9E71"}}>*/}
+        {/*            <Typography variant="h3" component="h3" >*/}
+        {/*                To see this page you need to sign in!*/}
+        {/*            </Typography>*/}
+        {/*        </Paper>*/}
+        {/*    )}*/}
     </div>);
 };
 

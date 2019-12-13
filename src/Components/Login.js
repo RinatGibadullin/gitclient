@@ -9,6 +9,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Switch} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import STATUS from "gitstar-components/status";
 
 
 const useStyles = makeStyles(theme => ({
@@ -51,13 +52,14 @@ export const IsTokenValid = () => localStorage.getItem("token") && ((localStorag
 //         </Query>)
 // }
 
+
 const Login = () => {
     const classes = useStyles();
     const [value, setValue] = React.useState("");
 
+
     const handleSubmit = () => {
         localStorage.setItem("token", value);
-        console.log("set token");
         return <Switch to="/profile"/>
     };
 

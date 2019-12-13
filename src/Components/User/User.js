@@ -8,55 +8,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import {Query} from "react-apollo";
 import Loader from "react-loader-spinner";
-import gql from "graphql-tag";
 import RepositoryList from "../RepositoryList/RepositoryList";
 import Avatar from "@material-ui/core/Avatar";
-import FollowUser from "./Mutations/FollowUser";
-import UnFollowUser from "./Mutations/UnFollowUser";
-
-
-const GET_USER = gql`
-query($id: ID!){
-    node(id: $id) {
-        ... on User {
-            id
-            name
-            login
-            avatarUrl
-            url
-            bio
-            company
-            isViewer
-            location
-            websiteUrl
-            viewerIsFollowing
-            repositories(first: 10
-                        orderBy: { direction: DESC, field: STARGAZERS }) {
-                edges {
-                    node {
-                        id
-                        name
-                        url
-                        descriptionHTML
-                        owner {
-                          login
-                          url
-                        }
-                        stargazers {
-                          totalCount
-                        }
-                        viewerHasStarred
-                        watchers {
-                          totalCount
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-`;
-
+import FollowUser from "../graphql/Mutations/FollowUser";
+import UnFollowUser from "../graphql/Mutations/UnFollowUser";
+import {GET_USER} from "../graphql/Queries/GET_USER";
 
 export const useStyles = makeStyles(theme => ({
     root: {
