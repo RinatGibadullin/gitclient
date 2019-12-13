@@ -25,7 +25,6 @@ export const useStyles = makeStyles(theme => ({
 
 const Star = ({node}) => {
     const {id} = node;
-    const classes = useStyles();
     return <Mutation mutation={STAR_REPOSITORY} variables={{id}}>
         {starRepository => (
             <i onClick={starRepository} className="far fa-star fa-2x" style={{cursor: 'pointer'}}/>

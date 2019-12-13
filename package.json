@@ -1,7 +1,9 @@
 {
+  "homepage": "https://rinatos.github.io/GitClient",
   "name": "react-apollo-client-example",
   "version": "0.1.0",
   "private": true,
+
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
@@ -10,6 +12,7 @@
     "apollo-client": "^2.4.3",
     "apollo-link-http": "^1.5.5",
     "fg-loadcss": "^2.1.0",
+    "gh-pages": "^2.1.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "material-ui-image": "^3.2.2",
@@ -22,6 +25,8 @@
     "react-scripts": "3.1.0"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --passWithNoTests",
