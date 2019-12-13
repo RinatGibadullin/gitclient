@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/GitClient/static/css/main.98ea214b.chunk.css",
+    "main.js": "/GitClient/static/js/main.e9d9d8b4.chunk.js",
+    "main.js.map": "/GitClient/static/js/main.e9d9d8b4.chunk.js.map",
+    "runtime~main.js": "/GitClient/static/js/runtime~main.4bbb244c.js",
+    "runtime~main.js.map": "/GitClient/static/js/runtime~main.4bbb244c.js.map",
+    "static/css/2.bc3aac6f.chunk.css": "/GitClient/static/css/2.bc3aac6f.chunk.css",
+    "static/js/2.fdd4ac4f.chunk.js": "/GitClient/static/js/2.fdd4ac4f.chunk.js",
+    "static/js/2.fdd4ac4f.chunk.js.map": "/GitClient/static/js/2.fdd4ac4f.chunk.js.map",
+    "index.html": "/GitClient/index.html",
+    "precache-manifest.4a8f15abaa6cfd8b94dc66663153ce11.js": "/GitClient/precache-manifest.4a8f15abaa6cfd8b94dc66663153ce11.js",
+    "service-worker.js": "/GitClient/service-worker.js",
+    "static/css/2.bc3aac6f.chunk.css.map": "/GitClient/static/css/2.bc3aac6f.chunk.css.map",
+    "static/css/main.98ea214b.chunk.css.map": "/GitClient/static/css/main.98ea214b.chunk.css.map"
+  }
+}
