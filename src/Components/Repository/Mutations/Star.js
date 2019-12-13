@@ -1,7 +1,5 @@
 import {Mutation} from "react-apollo";
 import React from "react";
-import Icon from '@material-ui/core/Icon';
-import {loadCSS} from 'fg-loadcss';
 import {makeStyles} from '@material-ui/core/styles';
 import gql from "graphql-tag";
 

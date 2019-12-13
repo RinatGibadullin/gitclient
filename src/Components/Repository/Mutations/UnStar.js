@@ -1,8 +1,6 @@
 import {Mutation} from "react-apollo";
 import React from "react";
-import Icon from '@material-ui/core/Icon';
 import gql from "graphql-tag";
-import {loadCSS} from "fg-loadcss";
 import {useStyles} from "./Star";
 
 const UNSTAR_REPOSITORY = gql`

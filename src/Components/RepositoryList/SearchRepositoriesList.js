@@ -12,7 +12,7 @@ const SearchRepositoriesList = ({data}) =>
         data.search.edges.map(({node}) => {
             if (node.id == null) return (
                 <p>No matches</p>
-            )
+            );
             return (
                     <li key={node.id}>
                         <Card className={useStyles.card}>

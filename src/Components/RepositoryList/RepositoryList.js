@@ -8,9 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import {Link} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
-const RepositoryList = ({
-                            repositories
-                        }) => (
+const RepositoryList = ({repositories}) => (
         <ul>
             {repositories.edges.map(({node}) => {
                 console.log(repositories)

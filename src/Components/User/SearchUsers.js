@@ -3,9 +3,10 @@ import '../App.css';
 import {Query} from "react-apollo";
 import gql from "graphql-tag";
 import SearchUsersList from "./SearchUsersList";
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, Paper} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Loader from "react-loader-spinner";
+import Typography from "@material-ui/core/Typography";
 
 
 export const SEARCH_USER = gql`
@@ -31,13 +32,18 @@ query ($user: String!){
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
+        justifyContent: "center"
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: 200,
-        justifyContent: "center"
     },
+    centerRow: {
+        padding: theme.spacing(3, 2),
+        textAlign: "center",
+        margin: "10px",
+    }
 }));
 
 
@@ -74,7 +80,14 @@ const SearchUsers = () => {
 
                             />
                         </div>
-                    )
+                    );
+                    if (!data) return (
+                        <Paper className={classes.centerRow}>
+                            <Typography variant="h3" component="h3" style={{color: "red"}}>
+                                Your token is not valid. Check please.
+                            </Typography>
+                        </Paper>
+                    );
                     if (error) return <p>Something went wrong...</p>
                     return <SearchUsersList data={data}/>
                 }}

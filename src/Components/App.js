@@ -31,7 +31,7 @@ query getOrganization($login: String!){
 
 export const useStyles = makeStyles({
     card: {
-        maxWidth: 100,
+        width: 200,
         margin: "auto",
         transition: "0.3s",
         boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
@@ -45,13 +45,6 @@ export const useStyles = makeStyles({
     media: {
         height: 100,
     },
-    // content: {
-    //     textAlign: "left",
-    //     padding: muiBaseTheme.spacing.unit * 3
-    // },
-    // divider: {
-    //     margin: `${muiBaseTheme.spacing.unit * 3}px 0`
-    // },
     heading: {
         fontWeight: "bold"
     },
@@ -84,15 +77,8 @@ export const theme = createMuiTheme({
     },
 });
 
-// function useQuery() {
-//     return new URLSearchParams(window.location().search);
-// }
 
 export const App = () => {
-    // const queryParams = useQuery();
-    // const { loading, error, data } = useQuery(SEARCH_REPOSITORY, {
-    //     variables: { language: 'english' },
-    // });
     return (
         <div>
             <NavBar/>

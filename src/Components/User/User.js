@@ -79,6 +79,11 @@ export const useStyles = makeStyles(theme => ({
     },
     item: {
         padding: theme.spacing(2, 2),
+    },
+    centerRow: {
+        padding: theme.spacing(3, 2),
+        textAlign: "center",
+        margin: "10px",
     }
 }));
 
@@ -119,12 +124,15 @@ const User = () => {
                             </Typography>
                             <hr/>
                             <Typography variant="subtitle2">
+                                <i className="fas fa-building fa-2x" />
                                 COMPANY: {node.company}
                             </Typography>
                             <Typography variant="subtitle2">
+                                <i className="fas fa-map-marker-alt fa-2x"/>
                                 LOCATION: {node.location}
                             </Typography>
                             <Typography variant="subtitle2">
+                                <i className="fab fa-superpowers fa-2x"></i>
                                 WEBSITE: {node.websiteUrl}
                             </Typography>
                         </div>
