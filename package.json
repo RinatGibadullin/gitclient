@@ -23,7 +23,7 @@
     "react-github-login": "^1.0.3",
     "react-loader-spinner": "^3.1.5",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.1.0"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "yarn run build",
